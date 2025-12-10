@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>IPC Framework — Technology Stack</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<style>
+/* ===== Global Apple-inspired Base ===== */
+:root{
+  --bg:#f6f7f9; --card:#ffffff; --accent:#0071e3; --muted:#5b6770;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial;
+  color:#0f1724;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ===== Navbar ===== */
+.navbar{
+  position:sticky; top:0; z-index:20;
+  background:var(--card);
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 36px;
+  box-shadow:0 2px 16px rgba(10,20,30,0.06);
+}
+.brand{font-weight:800;font-size:20px;color:var(--accent)}
+.navlinks a{
+  text-decoration:none; margin-left:18px;
+  font-weight:600; color:#0f1724;
+}
+.navlinks a:hover{color:var(--accent)}
+
+/* ===== Page Layout ===== */
+.container{max-width:1100px;margin:60px auto;padding:20px;}
+.title{font-size:38px;font-weight:800;margin-bottom:10px}
+.subtitle{font-size:18px;color:var(--muted);margin-bottom:30px}
+
+/* ===== Cards / Sections ===== */
+.section{
+  background:var(--card);
+  padding:32px;
+  border-radius:18px;
+  box-shadow:0 14px 40px rgba(12,20,40,0.06);
+  margin-bottom:28px;
+  opacity:0;
+  transform:translateY(26px);
+  transition:all .8s cubic-bezier(.2,.9,.2,1);
+}
+.section h2{
+  font-size:26px;
+  font-weight:700;
+  margin-top:0;
+}
+.section ul{margin:0 0 0 20px; line-height:1.7; color:var(--muted);}
+.section p{line-height:1.6; color:#333;}
+
+/* badges */
+.badges{margin-top:10px;margin-bottom:14px;}
+.badge{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:10px;
+  background:linear-gradient(90deg,#e7f3ff,#eef0ff);
+  font-weight:600;
+  color:#063970;
+  margin-right:10px;
+}
+
+/* responsive */
+@media(max-width:760px){
+  .title{font-size:30px}
+  .subtitle{font-size:16px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="navbar">
+  <div class="brand">IPC Framework</div>
+  <div class="navlinks">
+    <a href="../index.html" target="_blank">Home</a>
+    <a href="overview.html" target="_blank">Overview</a>
+    <a href="modules.html" target="_blank">Modules</a>
+    <a href="functionalities.html" target="_blank">Functionalities</a>
+    <a href="technology.html" target="_blank">Technology</a>
+    <a href="execution.html" target="_blank">Execution Plan</a>
+    <a href="examples.html" target="_blank">Examples</a>
+    <a href="simulation.html" target="_blank">Simulation</a>
+  </div>
+</nav>
+
+<!-- ===== PAGE CONTENT ===== -->
+<main class="container">
+
+  <h1 class="title">Technology Stack</h1>
+  <p class="subtitle">A stable, modular, and secure framework requires strong foundations — from OS-level primitives to developer tooling.</p>
+
+  <!-- Languages -->
+  <section class="section fade">
+    <h2>Programming Languages</h2>
+    <div class="badges">
+      <span class="badge">Low-level</span>
+      <span class="badge">Systems</span>
+      <span class="badge">High Performance</span>
+    </div>
+
+    <ul>
+      <li><b>C</b> — Primary implementation language. POSIX-compliant, minimal overhead, direct system call access.</li>
+      <li><b>C++</b> — For object-oriented abstractions or if extending with RAII patterns.</li>
+      <li><b>Python</b> — Used for scripts, monitoring dashboards & test automation.</li>
+    </ul>
+  </section>
+
+  <!-- POSIX -->
+  <section class="section fade">
+    <h2>POSIX Primitives Used</h2>
+    <div class="badges">
+      <span class="badge">POSIX IPC</span>
+      <span class="badge">Kernel Interfaces</span>
+    </div>
+
+    <ul>
+      <li><b>mkfifo()</b> — Create named pipes</li>
+      <li><b>mq_open(), mq_send(), mq_receive()</b> — Message queues</li>
+      <li><b>shm_open(), mmap()</b> — Shared memory segments</li>
+      <li><b>sem_open(), sem_post(), sem_wait()</b> — Synchronization</li>
+      <li><b>futex</b> (optional) — Ultra-fast locking for custom shared memory</li>
+    </ul>
+  </section>
+
+  <!-- Security -->
+  <section class="section fade">
+    <h2>Security & Permissions</h2>
+    <div class="badges">
+      <span class="badge">Authentication</span>
+      <span class="badge">Authorization</span>
+      <span class="badge">Encryption</span>
+    </div>
+
+    <p>The framework embeds a minimal, OS-level security model:</p>
+
+    <ul>
+      <li><b>Token-based access</b> — Each process must present a valid token to open a channel.</li>
+      <li><b>POSIX permissions (chmod 0600)</b> — Ensures only authorized processes can read/write IPC objects.</li>
+      <li><b>AES-GCM Encryption (optional)</b> — Adds confidentiality to sensitive channels like credentials or images.</li>
+    </ul>
+  </section>
+
+  <!-- Tools -->
+  <section class="section fade">
+    <h2>Developer Tools & Build System</h2>
+    <div class="badges">
+      <span class="badge">Debugging</span>
+      <span class="badge">Performance</span>
+      <span class="badge">Automation</span>
+    </div>
+
+    <ul>
+      <li><b>Makefile</b> — Clean, build, test targets.</li>
+      <li><b>Valgrind</b> — Memory debugging and leak detection.</li>
+      <li><b>perf / htop</b> — CPU & scheduling analysis for IPC performance.</li>
+      <li><b>gdb</b> — Runtime debugging.</li>
+      <li><b>GitHub Actions</b> — Optional CI testing on push.</li>
+    </ul>
+  </section>
+
+  <!-- Future tech -->
+  <section class="section fade">
+    <h2>Future Extensions</h2>
+    <div class="badges">
+      <span class="badge">Scalable</span>
+      <span class="badge">Modular</span>
+    </div>
+
+    <ul>
+      <li>Switchable backend for <b>memfd_create</b> (Linux) for secure memory IPC.</li>
+      <li>ZeroMQ-style network expansion for remote IPC.</li>
+      <li>Kernel bypass shared memory using io_uring.</li>
+      <li>Optional Rust backend for memory safety.</li>
+    </ul>
+  </section>
+
+</main>
+
+<script>
+/* ------ Scroll reveal animation ------ */
+(function(){
+  const els = document.querySelectorAll('.section');
+  function reveal(){
+    els.forEach(el=>{
+      const rect = el.getBoundingClientRect();
+      if(rect.top < window.innerHeight - 80){
+        el.style.opacity = 1;
+        el.style.transform = 'translateY(0)';
+      }
+    });
+  }
+  window.addEventListener('scroll', reveal);
+  window.addEventListener('resize', reveal);
+  reveal();
+})();
+</script>
+
+</body>
+</html>

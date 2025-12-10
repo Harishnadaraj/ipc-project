@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>IPC Framework — Modules</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+/* ===== Global / Apple-inspired base ===== */
+:root{
+  --bg:#f5f6f8; --card:#ffffff; --accent:#0071e3; --muted:#5b6770;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial;
+  background:var(--bg);
+  color:#111827;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ===== Navbar ===== */
+.navbar{
+  position:sticky; top:0; z-index:20;
+  background:var(--card);
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 36px;
+  box-shadow:0 2px 18px rgba(10,20,30,0.06);
+}
+.brand{font-weight:800; color:var(--accent); font-size:20px}
+.navlinks a{margin-left:18px; text-decoration:none; color:#0f1724; font-weight:600}
+.navlinks a:hover{color:var(--accent)}
+
+/* ===== Page container ===== */
+.container{max-width:1100px; margin:56px auto; padding:18px}
+.header-title{font-size:36px; font-weight:800; margin:0 0 8px}
+.lead{color:var(--muted); font-size:16px; max-width:780px; margin-bottom:22px}
+
+/* ===== Cards / Section Boxes ===== */
+.grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:22px; align-items:start}
+.card{
+  background:var(--card);
+  border-radius:16px;
+  padding:22px;
+  box-shadow:0 14px 40px rgba(12,20,40,0.06);
+  transition:transform .4s ease, box-shadow .4s ease;
+  transform-origin:center;
+}
+.card:hover{transform:translateY(-8px); box-shadow:0 26px 60px rgba(12,20,40,0.08)}
+.card h3{margin:0 0 8px; font-size:20px; font-weight:700}
+.card p{margin:0 0 12px; color:var(--muted); line-height:1.6}
+
+/* full-width section for detailed breakdown */
+.full{grid-column:1 / -1; display:block}
+.list{margin:8px 0 0 18px; color:var(--muted); line-height:1.7}
+
+/* small code style */
+.kv{background:#fbfcff;border-radius:10px;padding:10px;font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:13px;display:inline-block;color:#05314b}
+
+/* subtle badges */
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,#e9f6ff,#f6f0ff);color:#023047;font-weight:700;margin-right:8px}
+
+/* responsive */
+@media (max-width:980px){
+  .grid{grid-template-columns:1fr}
+  .header-title{font-size:30px}
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="brand">IPC Framework</div>
+  <div class="navlinks">
+    <a href="../index.html" target="_blank">Home</a>
+    <a href="overview.html" target="_blank">Overview</a>
+    <a href="modules.html" target="_blank">Modules</a>
+    <a href="functionalities.html" target="_blank">Functionalities</a>
+    <a href="technology.html" target="_blank">Technology</a>
+    <a href="execution.html" target="_blank">Execution Plan</a>
+    <a href="examples.html" target="_blank">Examples</a>
+    <a href="simulation.html" target="_blank">Simulation</a>
+  </div>
+</nav>
+
+<main class="container">
+  <header>
+    <h1 class="header-title">Module-Wise Breakdown</h1>
+    <p class="lead">A balanced, modular architecture separates concerns and makes each part testable, maintainable and demonstrable. Below are the three primary modules with responsibilities, interfaces, and how they interact.</p>
+  </header>
+
+  <section class="grid">
+    <!-- Core IPC Engine -->
+    <article class="card">
+      <h3>Core IPC Engine</h3>
+      <p>The heart of the framework: abstracts transport backends and provides a unified C API for producers and consumers.</p>
+      <div>
+        <span class="badge">Backend</span><span class="badge">API</span>
+      </div>
+
+      <ul class="list">
+        <li><strong>Channel lifecycle:</strong> create/open/close/unlink</li>
+        <li><strong>Transport wrappers:</strong> FIFO, POSIX MQ, Shared Memory</li>
+        <li><strong>Buffer management:</strong> ring buffers and pre-allocated frame pools</li>
+        <li><strong>Synchronization:</strong> semaphores, futex wrappers, eventfd</li>
+      </ul>
+
+      <p style="margin-top:12px"><strong>Example public API:</strong></p>
+      <div class="kv">ipc_channel_t* ipc_create(ipc_type_t type, const char* name, ipc_opts_t* opts);</div>
+      <div style="margin-top:8px;color:var(--muted)">This API hides the transport specifics and returns a uniform handle for send/receive operations.</div>
+    </article>
+
+    <!-- Security & Resource Manager -->
+    <article class="card">
+      <h3>Security & Resource Manager</h3>
+      <p>Enforces who can open channels, issues tokens, handles ACLs and optionally encrypts payloads.</p>
+      <div>
+        <span class="badge">Security</span><span class="badge">Resource</span>
+      </div>
+
+      <ul class="list">
+        <li><strong>Token manager:</strong> issue, refresh, verify</li>
+        <li><strong>ACL enforcement:</strong> map token → allowed channels & ops</li>
+        <li><strong>OS hardening:</strong> set 0600 modes for created IPC objects</li>
+        <li><strong>Cleanup policy:</strong> reference counting + orphan detection</li>
+      </ul>
+
+      <p style="margin-top:12px;color:var(--muted)">Design to accept HSM-backed token issuers in the future for production-grade security.</p>
+    </article>
+
+    <!-- Monitoring, SDKs & Tools -->
+    <article class="card">
+      <h3>Monitoring, SDKs & Tools</h3>
+      <p>Developer-facing components: CLI, Python SDK, and dashboards to inspect channels and metrics.</p>
+      <div>
+        <span class="badge">CLI</span><span class="badge">Python</span><span class="badge">Metrics</span>
+      </div>
+
+      <ul class="list">
+        <li><strong>ipcctl:</strong> list channels, view stats, unlink resources</li>
+        <li><strong>pyipc:</strong> thin Python bindings for scripting & tests</li>
+        <li><strong>Metrics:</strong> messages/sec, bytes/sec, latency histograms</li>
+      </ul>
+
+      <p style="margin-top:12px;color:var(--muted)">Monitoring integrates with Prometheus or simple CSV logging for offline analysis.</p>
+    </article>
+
+    <!-- Full-width detailed interaction -->
+    <article class="card full">
+      <h3>Module Interaction & Data Flow</h3>
+
+      <p style="color:var(--muted)">Modules communicate through clearly defined interfaces — the Core Engine requests token verification from Security when opening a channel. Monitoring registers callbacks to receive events for counters and status updates.</p>
+
+      <h4 style="margin-top:12px">Simplified Interaction Sequence</h4>
+      <ol class="list" style="margin-left:20px">
+        <li><strong>Client</strong> requests token for channel "sensor"</li>
+        <li><strong>Security</strong> issues short-lived token with allowed ops</li>
+        <li><strong>Client</strong> calls <span class="kv">ipc_open("sensor", token)</span></li>
+        <li><strong>Core Engine</strong> verifies token via Security module</li>
+        <li>On success, Core Engine creates/attaches to requested transport and registers metrics</li>
+      </ol>
+
+      <h4 style="margin-top:12px">Testing & Extensibility</h4>
+      <ul class="list">
+        <li>Unit-test Core Engine using a mock transport to validate API behavior.</li>
+        <li>Test Security by supplying valid/invalid tokens to verify enforcement.</li>
+        <li>Plug new transports easily (e.g., memfd-backed ring buffer) using the backend adapter interface.</li>
+      </ul>
+
+      <p style="margin-top:12px;color:var(--muted)">Repository layout suggestion:</p>
+      <pre style="background:#fbfdff;padding:12px;border-radius:10px;border:1px solid rgba(6,20,40,0.03);font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
+/src
+  /core        -- ipc.c, ipc.h
+  /backends    -- fifo.c, mq.c, shm.c
+  /security    -- token.c, acl.c
+  /tools       -- ipcctl.c
+  /bindings    -- pyipc/
+  /tests
+  /docs
+      </pre>
+    </article>
+  </section>
+</main>
+
+<script>
+/* simple reveal for elements with .card on scroll */
+(function(){
+  const cards = document.querySelectorAll('.card');
+  function reveal(){
+    cards.forEach(c => {
+      const r = c.getBoundingClientRect();
+      if(r.top < window.innerHeight - 80){
+        c.style.opacity = 1;
+        c.style.transform = 'translateY(0)';
+      } else {
+        c.style.opacity = 0;
+        c.style.transform = 'translateY(24px)';
+      }
+    });
+  }
+  // initial styling
+  cards.forEach(c => { c.style.opacity = 0; c.style.transform = 'translateY(24px)'; c.style.transition = 'all .8s cubic-bezier(.2,.9,.2,1)'; });
+  window.addEventListener('scroll', reveal);
+  window.addEventListener('resize', reveal);
+  reveal();
+})();
+</script>
+</body>
+</html>
