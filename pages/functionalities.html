@@ -1,208 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>IPC Framework — Modules</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IPC Framework — Functionalities</title>
+
 <style>
-/* ===== Global / Apple-inspired base ===== */
-:root{
-  --bg:#f5f6f8; --card:#ffffff; --accent:#0071e3; --muted:#5b6770;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial;
-  background:var(--bg);
-  color:#111827;
-  -webkit-font-smoothing:antialiased;
+/* GLOBAL STYLING */
+body {
+    margin: 0;
+    background: #f5f7fa;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, Arial;
+    color: #1d1d1f;
 }
 
-/* ===== Navbar ===== */
-.navbar{
-  position:sticky; top:0; z-index:20;
-  background:var(--card);
-  display:flex; justify-content:space-between; align-items:center;
-  padding:14px 36px;
-  box-shadow:0 2px 18px rgba(10,20,30,0.06);
+/* NAVBAR */
+.navbar {
+    width: 100%;
+    background: #ffffffcc;
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 26px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
-.brand{font-weight:800; color:var(--accent); font-size:20px}
-.navlinks a{margin-left:18px; text-decoration:none; color:#0f1724; font-weight:600}
-.navlinks a:hover{color:var(--accent)}
 
-/* ===== Page container ===== */
-.container{max-width:1100px; margin:56px auto; padding:18px}
-.header-title{font-size:36px; font-weight:800; margin:0 0 8px}
-.lead{color:var(--muted); font-size:16px; max-width:780px; margin-bottom:22px}
-
-/* ===== Cards / Section Boxes ===== */
-.grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:22px; align-items:start}
-.card{
-  background:var(--card);
-  border-radius:16px;
-  padding:22px;
-  box-shadow:0 14px 40px rgba(12,20,40,0.06);
-  transition:transform .4s ease, box-shadow .4s ease;
-  transform-origin:center;
+.brand {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0071e3;
 }
-.card:hover{transform:translateY(-8px); box-shadow:0 26px 60px rgba(12,20,40,0.08)}
-.card h3{margin:0 0 8px; font-size:20px; font-weight:700}
-.card p{margin:0 0 12px; color:var(--muted); line-height:1.6}
 
-/* full-width section for detailed breakdown */
-.full{grid-column:1 / -1; display:block}
-.list{margin:8px 0 0 18px; color:var(--muted); line-height:1.7}
+.nav-links a {
+    text-decoration: none;
+    margin-left: 18px;
+    color: #1d1d1f;
+    font-weight: 600;
+}
 
-/* small code style */
-.kv{background:#fbfcff;border-radius:10px;padding:10px;font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:13px;display:inline-block;color:#05314b}
+.nav-links a:hover {
+    color: #0071e3;
+}
 
-/* subtle badges */
-.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,#e9f6ff,#f6f0ff);color:#023047;font-weight:700;margin-right:8px}
+/* CONTENT LAYOUT */
+.container {
+    max-width: 1150px;
+    margin: 30px auto;
+    padding: 20px;
+}
 
-/* responsive */
-@media (max-width:980px){
-  .grid{grid-template-columns:1fr}
-  .header-title{font-size:30px}
+.card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.06);
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+}
+
+p, li {
+    line-height: 1.6;
+    color: #5b6570;
+}
+
+ul {
+    margin-left: 20px;
 }
 </style>
 </head>
+
 <body>
 
-<nav class="navbar">
-  <div class="brand">IPC Framework</div>
-  <div class="navlinks">
-    <a href="../index.html" target="_blank">Home</a>
-    <a href="overview.html" target="_blank">Overview</a>
-    <a href="modules.html" target="_blank">Modules</a>
-    <a href="functionalities.html" target="_blank">Functionalities</a>
-    <a href="technology.html" target="_blank">Technology</a>
-    <a href="execution.html" target="_blank">Execution Plan</a>
-    <a href="examples.html" target="_blank">Examples</a>
-    <a href="simulation.html" target="_blank">Simulation</a>
-  </div>
-</nav>
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="brand">IPC Framework</div>
+    <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="overview.html">Overview</a>
+        <a href="modules.html">Modules</a>
+        <a href="functionalities.html">Functionalities</a>
+        <a href="technology.html">Technology</a>
+        <a href="execution.html">Execution Plan</a>
+        <a href="examples.html">Examples</a>
+        <a href="simulation.html">Simulation</a>
+        <a href="risks.html">Risks</a>
+        <a href="future.html">Future Enhancements</a>
+    </div>
+</div>
 
-<main class="container">
-  <header>
-    <h1 class="header-title">Module-Wise Breakdown</h1>
-    <p class="lead">A balanced, modular architecture separates concerns and makes each part testable, maintainable and demonstrable. Below are the three primary modules with responsibilities, interfaces, and how they interact.</p>
-  </header>
+<!-- CONTENT -->
+<div class="container">
 
-  <section class="grid">
-    <!-- Core IPC Engine -->
-    <article class="card">
-      <h3>Core IPC Engine</h3>
-      <p>The heart of the framework: abstracts transport backends and provides a unified C API for producers and consumers.</p>
-      <div>
-        <span class="badge">Backend</span><span class="badge">API</span>
-      </div>
+    <div class="card">
+        <h1>Functionalities</h1>
+        <p>
+            This page breaks down all the core functionalities that your IPC Framework supports.
+            These functionalities help processes communicate securely, efficiently, and predictably.
+        </p>
+    </div>
 
-      <ul class="list">
-        <li><strong>Channel lifecycle:</strong> create/open/close/unlink</li>
-        <li><strong>Transport wrappers:</strong> FIFO, POSIX MQ, Shared Memory</li>
-        <li><strong>Buffer management:</strong> ring buffers and pre-allocated frame pools</li>
-        <li><strong>Synchronization:</strong> semaphores, futex wrappers, eventfd</li>
-      </ul>
+    <!-- FUNCTIONALITY 1 -->
+    <div class="card">
+        <h2>1. FIFO (Named Pipes)</h2>
+        <p>FIFO provides a simple, one-directional communication channel between processes.</p>
 
-      <p style="margin-top:12px"><strong>Example public API:</strong></p>
-      <div class="kv">ipc_channel_t* ipc_create(ipc_type_t type, const char* name, ipc_opts_t* opts);</div>
-      <div style="margin-top:8px;color:var(--muted)">This API hides the transport specifics and returns a uniform handle for send/receive operations.</div>
-    </article>
+        <h3>Key Features:</h3>
+        <ul>
+            <li>Stream-based communication (bytes flow continuously)</li>
+            <li>Ideal for logging, process pipelines, and live data streams</li>
+            <li>Blocking and non-blocking modes supported</li>
+            <li>Simple read/write interface</li>
+        </ul>
 
-    <!-- Security & Resource Manager -->
-    <article class="card">
-      <h3>Security & Resource Manager</h3>
-      <p>Enforces who can open channels, issues tokens, handles ACLs and optionally encrypts payloads.</p>
-      <div>
-        <span class="badge">Security</span><span class="badge">Resource</span>
-      </div>
+        <h3>Example Use Case:</h3>
+        <p>
+            A data producer writes logs to a FIFO, while a monitoring process continuously reads them.
+        </p>
+    </div>
 
-      <ul class="list">
-        <li><strong>Token manager:</strong> issue, refresh, verify</li>
-        <li><strong>ACL enforcement:</strong> map token → allowed channels & ops</li>
-        <li><strong>OS hardening:</strong> set 0600 modes for created IPC objects</li>
-        <li><strong>Cleanup policy:</strong> reference counting + orphan detection</li>
-      </ul>
+    <!-- FUNCTIONALITY 2 -->
+    <div class="card">
+        <h2>2. POSIX Message Queues</h2>
+        <p>
+            Message Queues allow asynchronous communication using structured messages with optional priority levels.
+        </p>
 
-      <p style="margin-top:12px;color:var(--muted)">Design to accept HSM-backed token issuers in the future for production-grade security.</p>
-    </article>
+        <h3>Key Features:</h3>
+        <ul>
+            <li>Priority messaging (higher priority dequeued first)</li>
+            <li>Non-blocking send/receive options</li>
+            <li>Ideal for job scheduling, event handling, and worker systems</li>
+            <li>Reliable delivery with message boundaries preserved</li>
+        </ul>
 
-    <!-- Monitoring, SDKs & Tools -->
-    <article class="card">
-      <h3>Monitoring, SDKs & Tools</h3>
-      <p>Developer-facing components: CLI, Python SDK, and dashboards to inspect channels and metrics.</p>
-      <div>
-        <span class="badge">CLI</span><span class="badge">Python</span><span class="badge">Metrics</span>
-      </div>
+        <h3>Example Use Case:</h3>
+        <p>
+            Event-driven systems where multiple producers queue tasks for worker processes.
+        </p>
+    </div>
 
-      <ul class="list">
-        <li><strong>ipcctl:</strong> list channels, view stats, unlink resources</li>
-        <li><strong>pyipc:</strong> thin Python bindings for scripting & tests</li>
-        <li><strong>Metrics:</strong> messages/sec, bytes/sec, latency histograms</li>
-      </ul>
+    <!-- FUNCTIONALITY 3 -->
+    <div class="card">
+        <h2>3. Shared Memory (With Semaphores)</h2>
+        <p>
+            Shared Memory is the fastest IPC method because processes read directly from a common memory region.
+        </p>
 
-      <p style="margin-top:12px;color:var(--muted)">Monitoring integrates with Prometheus or simple CSV logging for offline analysis.</p>
-    </article>
+        <h3>Key Features:</h3>
+        <ul>
+            <li>Zero-copy data sharing</li>
+            <li>Ideal for real-time systems or large binary data transfer</li>
+            <li>Requires synchronization with semaphores to avoid race conditions</li>
+            <li>High throughput and extremely low latency</li>
+        </ul>
 
-    <!-- Full-width detailed interaction -->
-    <article class="card full">
-      <h3>Module Interaction & Data Flow</h3>
+        <h3>Example Use Case:</h3>
+        <p>
+            A sensor generating high-frequency data that must be processed in real-time by another process.
+        </p>
+    </div>
 
-      <p style="color:var(--muted)">Modules communicate through clearly defined interfaces — the Core Engine requests token verification from Security when opening a channel. Monitoring registers callbacks to receive events for counters and status updates.</p>
+    <!-- SECURITY FUNCTIONALITY -->
+    <div class="card">
+        <h2>4. Security Layer</h2>
+        <p>The framework includes built-in security features to protect IPC channels from misuse.</p>
 
-      <h4 style="margin-top:12px">Simplified Interaction Sequence</h4>
-      <ol class="list" style="margin-left:20px">
-        <li><strong>Client</strong> requests token for channel "sensor"</li>
-        <li><strong>Security</strong> issues short-lived token with allowed ops</li>
-        <li><strong>Client</strong> calls <span class="kv">ipc_open("sensor", token)</span></li>
-        <li><strong>Core Engine</strong> verifies token via Security module</li>
-        <li>On success, Core Engine creates/attaches to requested transport and registers metrics</li>
-      </ol>
+        <h3>Key Features:</h3>
+        <ul>
+            <li>Token-based authorization</li>
+            <li>Strict POSIX permissions (0600)</li>
+            <li>Optional AES-GCM message encryption</li>
+            <li>Access logging for auditing</li>
+        </ul>
 
-      <h4 style="margin-top:12px">Testing & Extensibility</h4>
-      <ul class="list">
-        <li>Unit-test Core Engine using a mock transport to validate API behavior.</li>
-        <li>Test Security by supplying valid/invalid tokens to verify enforcement.</li>
-        <li>Plug new transports easily (e.g., memfd-backed ring buffer) using the backend adapter interface.</li>
-      </ul>
+        <h3>Example Use Case:</h3>
+        <p>
+            Rejecting unauthorized processes attempting to access shared memory or message queues.
+        </p>
+    </div>
 
-      <p style="margin-top:12px;color:var(--muted)">Repository layout suggestion:</p>
-      <pre style="background:#fbfdff;padding:12px;border-radius:10px;border:1px solid rgba(6,20,40,0.03);font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
-/src
-  /core        -- ipc.c, ipc.h
-  /backends    -- fifo.c, mq.c, shm.c
-  /security    -- token.c, acl.c
-  /tools       -- ipcctl.c
-  /bindings    -- pyipc/
-  /tests
-  /docs
-      </pre>
-    </article>
-  </section>
-</main>
+    <!-- MONITORING FUNCTIONALITY -->
+    <div class="card">
+        <h2>5. Monitoring & Metrics</h2>
+        <p>The framework includes real-time observability options.</p>
 
-<script>
-/* simple reveal for elements with .card on scroll */
-(function(){
-  const cards = document.querySelectorAll('.card');
-  function reveal(){
-    cards.forEach(c => {
-      const r = c.getBoundingClientRect();
-      if(r.top < window.innerHeight - 80){
-        c.style.opacity = 1;
-        c.style.transform = 'translateY(0)';
-      } else {
-        c.style.opacity = 0;
-        c.style.transform = 'translateY(24px)';
-      }
-    });
-  }
-  // initial styling
-  cards.forEach(c => { c.style.opacity = 0; c.style.transform = 'translateY(24px)'; c.style.transition = 'all .8s cubic-bezier(.2,.9,.2,1)'; });
-  window.addEventListener('scroll', reveal);
-  window.addEventListener('resize', reveal);
-  reveal();
-})();
-</script>
+        <h3>Key Features:</h3>
+        <ul>
+            <li>Message throughput tracking</li>
+            <li>Latency histograms</li>
+            <li>Queue depth monitoring</li>
+            <li>CLI tool (<code>ipcctl</code>) for inspecting channels</li>
+        </ul>
+
+        <h3>Example Use Case:</h3>
+        <p>
+            Detecting system bottlenecks, debugging communication delays, and performance tuning.
+        </p>
+    </div>
+
+</div>
+
 </body>
 </html>
