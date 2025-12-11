@@ -1,400 +1,309 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>IPC Simulation — Bubble Animation</title>
+<title>IPC Framework — Simulation</title>
 
 <style>
-:root {
-  --bg: #f5f7fa;
-  --card: #ffffff;
-  --accent: #0071e3;
-  --accent2: #9855ff;
-  --muted: #64748b;
-  --text: #0f172a;
-  --radius: 18px;
-  --shadow: 0 18px 40px rgba(0,0,0,0.08);
-}
-
-* { box-sizing: border-box; }
+/* GLOBAL PAGE STYLE */
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, Arial;
-  background: var(--bg);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
+    margin: 0;
+    background: #f5f7fa;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, Arial;
 }
 
 /* NAVBAR */
 .navbar {
-  position: sticky;
-  top: 0;
-  padding: 14px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-  z-index: 50;
+    width: 100%;
+    background: #ffffffcc;
+    backdrop-filter: blur(10px);
+    padding: 14px 26px;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    z-index: 1000;
 }
+
 .brand {
-  font-weight: 800;
-  font-size: 18px;
-  color: var(--accent);
+    font-size: 20px;
+    font-weight: 700;
+    color: #0071e3;
 }
-.navbar a {
-  margin-left: 16px;
-  text-decoration: none;
-  font-weight: 600;
-  color: var(--text);
-}
-.navbar a:hover { color: var(--accent); }
 
-/* LAYOUT */
+.nav-links a {
+    margin-left: 18px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #1d1d1f;
+}
+
+.nav-links a:hover {
+    color: #0071e3;
+}
+
+/* PAGE CONTAINER */
 .container {
-  max-width: 1100px;
-  margin: 30px auto;
-  padding: 0 20px;
+    max-width: 1150px;
+    margin: 30px auto;
+    padding: 20px;
 }
 
-/* HERO */
-.hero-title {
-  font-size: 34px;
-  font-weight: 800;
-}
-.hero-sub {
-  color: var(--muted);
-  margin-bottom: 20px;
+/* CARD */
+.card {
+    background: #fff;
+    padding: 22px;
+    border-radius: 14px;
+    margin-bottom: 22px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.06);
 }
 
-/* CONTROLS */
+/* SIMULATION AREA */
+.sim-box {
+    background: #eef2f8;
+    border-radius: 12px;
+    padding: 20px;
+    height: 440px;
+    position: relative;
+    overflow: hidden;
+}
+
+.entity {
+    width: 160px;
+    height: 80px;
+    background: #ffffff;
+    position: absolute;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+/* Entities */
+#producer { top: 40%; left: 30px; }
+#consumer { top: 40%; right: 30px; }
+
+/* Moving Data Packet */
+.packet {
+    width: 70px;
+    height: 30px;
+    background: #0071e3;
+    color: white;
+    font-size: 14px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+}
+
+/* Controls */
 .controls {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 20px 0;
+    margin-top: 16px;
 }
-.tab {
-  padding: 10px 16px;
-  border-radius: 10px;
-  background: #eef6ff;
-  border: none;
-  cursor: pointer;
-  font-weight: 700;
+button {
+    padding: 12px 18px;
+    margin-right: 10px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
 }
-.tab.active {
-  background: linear-gradient(90deg, #dff4ff, #f3e8ff);
-}
-.btn {
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  font-weight: 700;
-  color: #fff;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-}
-.btn.pause-btn {
-  background: #e2e8f0;
-  color: #1e293b;
-}
-select {
-  padding: 10px;
-  border-radius: 8px;
+.play { background: #0071e3; color: white; }
+.reset { background: #d8d8d8; }
+
+/* Narration Box */
+.narration {
+    margin-top: 18px;
+    background: #eef6ff;
+    padding: 14px;
+    border-left: 4px solid #0071e3;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #334155;
 }
 
-/* STAGE */
-.stage {
-  position: relative;
-  height: 380px;
-  background: var(--card);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  padding: 20px;
+/* Mode Selector */
+.mode-box {
+    margin: 10px 0;
+    padding: 14px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
 }
 
-/* Nodes */
-.node {
-  position: absolute;
-  width: 180px;
-  height: 110px;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 14px 30px rgba(0,0,0,0.07);
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
+.mode-box select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #cfcfcf;
 }
-
-/* Positions */
-#producer { top: 140px; left: 20px; }
-#ipc      { top: 100px; left: calc(50% - 90px); }
-#consumer { top: 140px; right: 20px; }
-
-.pipe {
-  position: absolute;
-  top: 180px;
-  left: 180px;
-  right: 180px;
-  height: 10px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #def, #fde);
-}
-
-/* Bubble particle */
-.bubble {
-  position: absolute;
-  width: 26px;
-  height: 26px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #007aff, #00c6ff);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-}
-
-/* Narration + Metrics */
-.side-card {
-  margin-top: 20px;
-  background: var(--card);
-  padding: 18px;
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-}
-.side-title { margin: 0 0 6px; font-weight: 700; }
-.metric-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin-top: 12px;
-}
-.metric-grid div { margin-bottom: 8px; }
-
 </style>
-</head>
 
+</head>
 <body>
 
-<header class="navbar">
-  <div class="brand">IPC Simulation</div>
-  <div>
-    <a href="../index.html" target="_blank">Home</a>
-    <a href="overview.html" target="_blank">Overview</a>
-  </div>
-</header>
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="brand">IPC Framework</div>
+    <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="overview.html">Overview</a>
+        <a href="modules.html">Modules</a>
+        <a href="functionalities.html">Functionalities</a>
+        <a href="technology.html">Technology</a>
+        <a href="execution.html">Execution Plan</a>
+        <a href="examples.html">Examples</a>
+        <a href="simulation.html">Simulation</a>
+        <a href="risks.html">Risks</a>
+        <a href="future.html">Future Enhancements</a>
+    </div>
+</div>
 
+
+<!-- PAGE CONTENT -->
 <div class="container">
 
-  <h1 class="hero-title">IPC Simulation — Bubble Flow</h1>
-  <p class="hero-sub">Experience FIFO, Message Queues, and Shared Memory with smooth animations.</p>
-
-  <!-- CONTROLS -->
-  <div class="controls">
-    <button class="tab active" data-mode="FIFO">FIFO</button>
-    <button class="tab" data-mode="MQ">Message Queue</button>
-    <button class="tab" data-mode="SHM">Shared Memory</button>
-
-    <button class="btn" id="play">▶ Play</button>
-    <button class="btn pause-btn" id="pause">⏸ Pause</button>
-    <button class="btn" id="step">⭢ Step</button>
-    <button class="btn" id="reset">⟲ Restart</button>
-
-    <select id="speed">
-      <option value="1">Normal</option>
-      <option value="1.5">Fast</option>
-      <option value="0.6">Slow</option>
-    </select>
-  </div>
-
-  <!-- SIMULATION STAGE -->
-  <div class="stage" id="stage">
-    <div class="pipe"></div>
-
-    <div class="node" id="producer">
-      <strong>Producer</strong>
-      <span style="color:var(--muted)">writes</span>
+    <div class="card">
+        <h1>IPC Simulation</h1>
+        <p>
+            This real-time animated simulation demonstrates how data travels between processes using:
+            <b>FIFO</b>, <b>Message Queues</b>, and <b>Shared Memory</b>.  
+            Watch the packet move, step-by-step, as IPC mechanisms operate behind the scenes.
+        </p>
     </div>
 
-    <div class="node" id="ipc">
-      <strong>IPC Layer</strong>
-      <span style="color:var(--muted)">transport</span>
+    <!-- MODE SELECTION -->
+    <div class="mode-box">
+        <h3>Select IPC Mechanism</h3>
+        <select id="modeSelector">
+            <option value="fifo">FIFO (Named Pipe)</option>
+            <option value="mq">Message Queue</option>
+            <option value="shm">Shared Memory</option>
+        </select>
     </div>
 
-    <div class="node" id="consumer">
-      <strong>Consumer</strong>
-      <span style="color:var(--muted)">reads</span>
-    </div>
-  </div>
+    <!-- SIMULATION BOX -->
+    <div class="card">
+        <h2>Simulation Area</h2>
+        <div class="sim-box">
 
-  <!-- Narration -->
-  <div class="side-card">
-    <h3 class="side-title">Live Narration</h3>
-    <p id="narration" style="color:var(--muted)">Choose a mode and press Play.</p>
+            <!-- Producer -->
+            <div id="producer" class="entity">Producer</div>
 
-    <div class="metric-grid">
-      <div><b>Sent:</b> <span id="sent">0</span></div>
-      <div><b>Received:</b> <span id="received">0</span></div>
-      <div><b>Queue:</b> <span id="queue">0</span></div>
-      <div><b>Semaphore:</b> <span id="sem">false</span></div>
+            <!-- Data Packet -->
+            <div id="packet" class="packet">DATA</div>
+
+            <!-- Consumer -->
+            <div id="consumer" class="entity">Consumer</div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="play" onclick="playSimulation()">Play Simulation</button>
+            <button class="reset" onclick="resetSimulation()">Reset</button>
+        </div>
+
+        <!-- Narration -->
+        <div id="narration" class="narration">
+            Select a mode and press <b>Play</b> to begin the IPC simulation.
+        </div>
     </div>
-  </div>
 
 </div>
 
+
 <script>
-/* SIMULATION ENGINE — clean, stable, fast */
-const stage = document.getElementById("stage");
-const narration = msg => document.getElementById("narration").innerText = msg;
+/* SCRIPT CONTROLS */
+let packet = document.getElementById("packet");
+let narration = document.getElementById("narration");
+let modeSelector = document.getElementById("modeSelector");
 
-const sentEl = document.getElementById("sent");
-const recvEl = document.getElementById("received");
-const queueEl = document.getElementById("queue");
-const semEl = document.getElementById("sem");
-
-let mode = "FIFO";
-let running = false;
-let loopRef = null;
-
-let sent = 0, recv = 0, queue = 0, sem = false;
-
-document.querySelectorAll(".tab").forEach(tab => {
-  tab.onclick = () => {
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    tab.classList.add("active");
-    mode = tab.dataset.mode;
-    reset();
-  };
-});
-
-function bubble(color="#00aaff") {
-  let b = document.createElement("div");
-  b.className = "bubble";
-  b.style.background = color;
-  stage.appendChild(b);
-  return b;
+function resetSimulation() {
+    packet.style.left = "120px";
+    packet.style.opacity = "0";
+    narration.innerHTML = "Simulation reset. Choose a mode and press Play.";
 }
 
-function moveBubble(b, x1,y1, x2,y2, speed=1) {
-  return new Promise(resolve => {
-    const duration = 900 / speed;
-    const start = performance.now();
+function playSimulation() {
+    let mode = modeSelector.value;
 
-    function animate(now) {
-      let t = Math.min((now - start) / duration, 1);
-      b.style.left = x1 + (x2 - x1)*t + "px";
-      b.style.top = y1 + (y2 - y1)*t + "px";
-      if(t < 1 && running) requestAnimationFrame(animate);
-      else { b.remove(); resolve(); }
-    }
-    requestAnimationFrame(animate);
-  });
+    resetSimulation();
+
+    setTimeout(() => {
+        packet.style.opacity = "1";
+        if (mode === "fifo") runFIFO();
+        if (mode === "mq") runMQ();
+        if (mode === "shm") runSHM();
+    }, 400);
 }
 
-/* MAIN ACTION STEPS */
-async function step() {
-  if(mode === "FIFO") await fifoStep();
-  if(mode === "MQ")   await mqStep();
-  if(mode === "SHM")  await shmStep();
+/* FIFO ANIMATION */
+function runFIFO() {
+    narration.innerHTML = "<b>FIFO Mode:</b> Producer writes bytes sequentially through a pipe.";
+
+    packet.animate([
+        { left: "120px" },
+        { left: "50%" },
+        { left: "82%" }
+    ], {
+        duration: 3000,
+        easing: "ease-in-out",
+        fill: "forwards"
+    });
+
+    setTimeout(() => {
+        narration.innerHTML += "<br>Consumer reads bytes in the same order they were written.";
+    }, 3000);
 }
 
-/* FIFO */
-async function fifoStep() {
-  narration("FIFO → Producer writes sequential stream.");
+/* MESSAGE QUEUE ANIMATION */
+function runMQ() {
+    narration.innerHTML = "<b>Message Queue Mode:</b> Producer sends a structured message with priority.";
 
-  sent++; sentEl.innerText = sent;
+    packet.style.background = "#7c3aed";
 
-  let b = bubble();
+    packet.animate([
+        { left: "120px" },
+        { transform: "translateY(-40px)", offset: 0.4 },
+        { left: "82%" }
+    ], {
+        duration: 2800,
+        easing: "ease-in-out",
+        fill: "forwards"
+    });
 
-  await moveBubble(b, 60,170, 520,150);
-  narration("Stream forwarded to consumer.");
-  let b2 = bubble();
-
-  await moveBubble(b2, 520,150, 950,170);
-
-  recv++; recvEl.innerText = recv;
+    setTimeout(() => {
+        narration.innerHTML += "<br>Consumer receives the highest priority message first.";
+    }, 2800);
 }
 
-/* MQ */
-async function mqStep() {
-  let high = Math.random() < 0.3;
-  let color = high ? "linear-gradient(90deg,#00d68f,#00ffb1)" : "linear-gradient(90deg,#007aff,#00c6ff)";
-  let b = bubble(color);
+/* SHARED MEMORY ANIMATION */
+function runSHM() {
+    narration.innerHTML = "<b>Shared Memory Mode:</b> Producer writes directly into a common memory block.";
 
-  sent++; queue++; 
-  sentEl.innerText = sent; queueEl.innerText = queue;
+    packet.style.background = "#16a34a"; // green
 
-  narration("MQ → Message queued" + (high ? " (HIGH PRIORITY)" : ""));
+    packet.animate([
+        { left: "120px" },
+        { left: "50%", offset: 0.5 },
+        { left: "82%" }
+    ], {
+        duration: 3200,
+        easing: "ease-in-out",
+        fill: "forwards"
+    });
 
-  await moveBubble(b, 60,170, 520,150);
-
-  queue--; queueEl.innerText = queue;
-  narration("MQ → Message dequeued → delivered");
-
-  let b2 = bubble(color);
-  await moveBubble(b2, 520,150, 950,170);
-
-  recv++; recvEl.innerText = recv;
+    setTimeout(() => {
+        narration.innerHTML += "<br>Consumer reads instantly from shared memory using semaphores.";
+    }, 3200);
 }
-
-/* SHM */
-async function shmStep() {
-  narration("SHM → Producer writes into shared memory block.");
-  sem = true; semEl.innerText = sem;
-
-  sent++; sentEl.innerText = sent;
-
-  await new Promise(r => setTimeout(r, 400));
-
-  let b = bubble("linear-gradient(90deg,#ffb84d,#ff8a00)");
-  narration("SHM → Semaphore posted.");
-  await moveBubble(b, 60,170, 510,170);
-
-  let b2 = bubble();
-  narration("SHM → Consumer reads zero-copy data.");
-  await moveBubble(b2, 520,160, 950,170);
-
-  recv++; recvEl.innerText = recv;
-  sem = false; semEl.innerText = sem;
-}
-
-/* LOOP */
-async function loop() {
-  running = true;
-  narration("Running...");
-  loopRef = setInterval(() => step(), 1200);
-}
-
-/* CONTROLS */
-document.getElementById("play").onclick = () => { 
-  if(!running) loop(); 
-};
-
-document.getElementById("pause").onclick = () => { 
-  running = false; 
-  narration("Paused.");
-  clearInterval(loopRef);
-};
-
-document.getElementById("step").onclick = () => { 
-  running = false;
-  clearInterval(loopRef);
-  step(); 
-};
-
-document.getElementById("reset").onclick = reset;
-
-function reset() {
-  running = false;
-  clearInterval(loopRef);
-  narration("Reset — choose mode and press Play.");
-  sent = recv = queue = 0;
-  sem = false;
-  sentEl.innerText = recvEl.innerText = queueEl.innerText = 0;
-  semEl.innerText = "false";
-}
-
 </script>
 
 </body>
