@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPC Framework — Risks & Challenges</title>
+
+<style>
+/* GLOBAL STYLES */
+body {
+    margin: 0;
+    background: #f5f7fa;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, Arial;
+    color: #1d1d1f;
+}
+
+/* NAVBAR */
+.navbar {
+    width: 100%;
+    background: #ffffffcc;
+    backdrop-filter: blur(10px);
+    padding: 14px 26px;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0071e3;
+}
+
+.nav-links a {
+    text-decoration: none;
+    margin-left: 18px;
+    color: #1d1d1f;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: #0071e3;
+}
+
+/* PAGE CONTAINER */
+.container {
+    max-width: 1150px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+/* CARDS */
+.card {
+    background: #ffffff;
+    padding: 22px;
+    border-radius: 14px;
+    margin-bottom: 22px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.06);
+}
+
+h1, h2 {
+    margin-top: 0;
+}
+
+p, li {
+    color: #5b6570;
+    line-height: 1.6;
+}
+
+/* LISTS */
+ul {
+    margin-left: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="brand">IPC Framework</div>
+    <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="overview.html">Overview</a>
+        <a href="modules.html">Modules</a>
+        <a href="functionalities.html">Functionalities</a>
+        <a href="technology.html">Technology</a>
+        <a href="execution.html">Execution Plan</a>
+        <a href="examples.html">Examples</a>
+        <a href="simulation.html">Simulation</a>
+        <a href="risks.html">Risks</a>
+        <a href="future.html">Future Enhancements</a>
+    </div>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+
+    <div class="card">
+        <h1>Risks & Challenges in IPC Systems</h1>
+        <p>
+            IPC (Inter-Process Communication) brings many advantages such as faster communication and
+            efficient resource sharing, but it also introduces several risks that must be understood
+            and mitigated. This section explains each risk clearly so you can describe them confidently
+            during your project evaluation.
+        </p>
+    </div>
+
+    <!-- RISK 1 -->
+    <div class="card">
+        <h2>1. Race Conditions</h2>
+        <p>
+            When two or more processes access shared memory without proper synchronization,
+            inconsistent data can occur.
+        </p>
+
+        <h3>Why this is dangerous:</h3>
+        <ul>
+            <li>Data may be overwritten unexpectedly</li>
+            <li>Incorrect values may be read by consumer processes</li>
+            <li>Can lead to unpredictable system behavior</li>
+        </ul>
+
+        <h3>Mitigation:</h3>
+        <ul>
+            <li>Use semaphores (<code>sem_wait</code>, <code>sem_post</code>)</li>
+            <li>Follow strict producer-consumer rules</li>
+            <li>Use mutex locks if using pthreads</li>
+        </ul>
+    </div>
+
+    <!-- RISK 2 -->
+    <div class="card">
+        <h2>2. Deadlocks</h2>
+        <p>
+            A deadlock occurs when two processes wait for each other indefinitely.
+            IPC systems using locks or semaphores are prone to this.
+        </p>
+
+        <h3>Example Scenario:</h3>
+        <p>
+            Process A waits for a semaphore held by Process B, and Process B waits for a semaphore held by Process A.
+        </p>
+
+        <h3>Mitigation:</h3>
+        <ul>
+            <li>Use timeout-based locking</li>
+            <li>Define a strict acquisition order for semaphores</li>
+            <li>Detect circular waits in testing</li>
+        </ul>
+    </div>
+
+    <!-- RISK 3 -->
+    <div class="card">
+        <h2>3. Unauthorized Access</h2>
+        <p>
+            By default, IPC objects like message queues and shared memory exist inside the OS namespace.
+            Other processes may try to access them.
+        </p>
+
+        <h3>Risks:</h3>
+        <ul>
+            <li>Data theft</li>
+            <li>Data corruption</li>
+            <li>Unauthorized process communication</li>
+        </ul>
+
+        <h3>Mitigation:</h3>
+        <ul>
+            <li>Enforce permissions (0600)</li>
+            <li>Use token-based authorization</li>
+            <li>Clear memory on unlink</li>
+        </ul>
+    </div>
+
+    <!-- RISK 4 -->
+    <div class="card">
+        <h2>4. Buffer Overflows</h2>
+        <p>
+            If message size exceeds the queue or FIFO buffer limit, overflow occurs.
+        </p>
+
+        <h3>Consequences:</h3>
+        <ul>
+            <li>Message loss</li>
+            <li>Consumer receives incomplete data</li>
+            <li>Application crashes</li>
+        </ul>
+
+        <h3>Mitigation:</h3>
+        <ul>
+            <li>Validate message size before sending</li>
+            <li>Monitor queue depth</li>
+            <li>Use larger buffers for high-throughput systems</li>
+        </ul>
+    </div>
+
+    <!-- RISK 5 -->
+    <div class="card">
+        <h2>5. Latency & Performance Bottlenecks</h2>
+        <p>
+            IPC involves kernel-level communication, which may introduce delays.
+        </p>
+
+        <h3>Common causes:</h3>
+        <ul>
+            <li>Slow consumers causing queue buildup</li>
+            <li>Large data copies (especially in FIFO & MQ)</li>
+            <li>Contention for shared resources</li>
+        </ul>
+
+        <h3>Mitigation:</h3>
+        <ul>
+            <li>Use Shared Memory for high-speed transfer</li>
+            <li>Optimize scheduling of producers/consumers</li>
+            <li>Monitor performance using <code>perf</code></li>
+        </ul>
+    </div>
+
+    <!-- RISK 6 -->
+    <div class="card">
+        <h2>6. Debugging Complexity</h2>
+        <p>
+            IPC bugs are difficult to track because multiple processes run simultaneously.
+        </p>
+
+        <h3>Challenges:</h3>
+        <ul>
+            <li>No direct stack trace across processes</li>
+            <li>Non-deterministic behavior</li>
+            <li>Hard-to-find race conditions</li>
+        </ul>
+
+        <h3>Mitigation:</h3>
+        <ul>
+            <li>Use <code>strace</code> for system call debugging</li>
+            <li>Use logging for each IPC operation</li>
+            <li>Simulate high loads to expose hidden bugs</li>
+        </ul>
+    </div>
+
+</div>
+
+</body>
+</html>
