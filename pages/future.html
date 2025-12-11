@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IPC Framework — Future Enhancements</title>
+
+<style>
+/* GLOBAL STYLES */
+body {
+    margin: 0;
+    background: #f5f7fa;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, Arial;
+    color: #1d1d1f;
+}
+
+/* NAVIGATION BAR */
+.navbar {
+    width: 100%;
+    background: #ffffffcc;
+    backdrop-filter: blur(10px);
+    padding: 14px 26px;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    z-index: 1000;
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0071e3;
+}
+
+.nav-links a {
+    margin-left: 18px;
+    text-decoration: none;
+    color: #1d1d1f;
+    font-weight: 600;
+}
+.nav-links a:hover {
+    color: #0071e3;
+}
+
+/* PAGE CONTENT */
+.container {
+    max-width: 1150px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.06);
+}
+
+h1, h2 {
+    margin-top: 0;
+}
+
+p, li {
+    color: #5b6570;
+    line-height: 1.6;
+}
+ul {
+    margin-left: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="brand">IPC Framework</div>
+
+    <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="overview.html">Overview</a>
+        <a href="modules.html">Modules</a>
+        <a href="functionalities.html">Functionalities</a>
+        <a href="technology.html">Technology</a>
+        <a href="execution.html">Execution Plan</a>
+        <a href="examples.html">Examples</a>
+        <a href="simulation.html">Simulation</a>
+        <a href="risks.html">Risks</a>
+        <a href="future.html">Future Enhancements</a>
+    </div>
+</div>
+
+
+<!-- CONTENT -->
+<div class="container">
+
+    <div class="card">
+        <h1>Future Enhancements</h1>
+        <p>
+            The current IPC Framework supports FIFO, Message Queues, Shared Memory, 
+            and a Security + Monitoring layer. However, the design allows for large-scale 
+            improvements that would make it more powerful, production-ready, and suited 
+            for real-world operating systems or distributed computing systems.
+        </p>
+    </div>
+
+    <!-- ENHANCEMENT 1 -->
+    <div class="card">
+        <h2>1. Distributed IPC Support</h2>
+        <p>
+            Current IPC works only locally on a single machine.  
+            Future versions can extend communication across multiple machines using:
+        </p>
+
+        <ul>
+            <li>TCP Sockets and Custom Protocols</li>
+            <li>ZeroMQ or nanomsg library integration</li>
+            <li>Cloud-ready IPC broker</li>
+        </ul>
+
+        <p>
+            This would allow building distributed applications similar to Kubernetes, Redis,
+            or message brokers like RabbitMQ.
+        </p>
+    </div>
+
+    <!-- ENHANCEMENT 2 -->
+    <div class="card">
+        <h2>2. Advanced Monitoring Dashboard</h2>
+        <p>
+            A full web dashboard (React / Vue) with real-time charts showing:
+        </p>
+
+        <ul>
+            <li>Message throughput</li>
+            <li>Latency graphs</li>
+            <li>Active producers & consumers</li>
+            <li>Error/overflow alerts</li>
+            <li>Shared memory utilization</li>
+        </ul>
+
+        <p>
+            This would make debugging and performance tuning extremely easier.
+        </p>
+    </div>
+
+    <!-- ENHANCEMENT 3 -->
+    <div class="card">
+        <h2>3. AI-Powered Automatic Load Balancing</h2>
+        <p>
+            By collecting traffic patterns, an ML model could:
+        </p>
+
+        <ul>
+            <li>Predict process load</li>
+            <li>Automatically assign consumer priority</li>
+            <li>Scale message queues dynamically</li>
+        </ul>
+
+        <p>
+            This would allow intelligent, self-optimizing IPC behavior.
+        </p>
+    </div>
+
+    <!-- ENHANCEMENT 4 -->
+    <div class="card">
+        <h2>4. Encryption by Default</h2>
+        <p>
+            Currently encryption is optional.  
+            Future versions could enforce:
+        </p>
+
+        <ul>
+            <li>End-to-end AES-GCM encryption</li>
+            <li>Automatic key rotation</li>
+            <li>Optional RSA public key encryption</li>
+        </ul>
+
+        <p>
+            This makes IPC fully secure even against internal threats.
+        </p>
+    </div>
+
+    <!-- ENHANCEMENT 5 -->
+    <div class="card">
+        <h2>5. Plug-and-Play API Architecture</h2>
+        <p>
+            Allow developers to add new IPC mechanisms as plugins:
+        </p>
+
+        <ul>
+            <li>UNIX Domain Sockets</li>
+            <li>Memory-Mapped Files</li>
+            <li>Signal-based IPC</li>
+            <li>Custom Transport Protocols</li>
+        </ul>
+
+        <p>
+            This will make the framework future-proof and modular.
+        </p>
+    </div>
+
+    <!-- ENHANCEMENT 6 -->
+    <div class="card">
+        <h2>6. Cloud Deployment Compatibility</h2>
+        <p>
+            Large-scale applications need IPC that works in containers (Docker) 
+            and distributed environments (Kubernetes).
+        </p>
+
+        <ul>
+            <li>Container-safe shared memory backend</li>
+            <li>Centralized IPC registry service</li>
+            <li>Cross-container FIFO virtualization</li>
+        </ul>
+    </div>
+
+    <!-- ENHANCEMENT 7 -->
+    <div class="card">
+        <h2>7. Failover & Redundancy Mechanisms</h2>
+        <p>
+            Future IPC systems should survive crashes and restarts using:
+        </p>
+
+        <ul>
+            <li>Backup message queues</li>
+            <li>Persistent shared memory snapshots</li>
+            <li>Crash recovery routines</li>
+        </ul>
+
+        <p>
+            This enables high-reliability systems used in banking, aviation, and healthcare.
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>
