@@ -1,287 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IPC Framework — Examples</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
 
 <style>
-/* ===== Apple-style Theme ===== */
-:root{
-  --bg:#f6f7f9;
-  --card:#ffffff;
-  --accent:#0071e3;
-  --muted:#556472;
-}
-*{box-sizing:border-box;}
-body{
-  margin:0;
-  background:var(--bg);
-  font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial;
-  color:#0f1724;
-  -webkit-font-smoothing:antialiased;
+/* GLOBAL STYLES */
+body {
+    margin: 0;
+    background: #f5f7fa;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, Arial;
+    color: #1d1d1f;
 }
 
-/* ===== Navbar ===== */
-.navbar{
-  position:sticky; top:0; z-index:20;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:14px 36px;
-  background:var(--card);
-  box-shadow:0 2px 16px rgba(10,20,30,0.06);
-}
-.brand{font-size:22px;font-weight:800;color:var(--accent);}
-.navlinks a{
-  margin-left:18px;
-  text-decoration:none;
-  color:#0f1724;
-  font-weight:600;
-}
-.navlinks a:hover{color:var(--accent);}
-
-/* ===== Layout ===== */
-.container{max-width:1100px;margin:60px auto;padding:20px;}
-.title{font-size:38px;font-weight:800;margin-bottom:14px;}
-.subtitle{font-size:18px;color:var(--muted);margin-bottom:32px;}
-
-/* Cards */
-.card{
-  background:var(--card);
-  padding:26px;
-  border-radius:18px;
-  box-shadow:0 14px 40px rgba(12,20,40,0.06);
-  margin-bottom:26px;
-  opacity:0;
-  transform:translateY(24px);
-  transition:all .8s cubic-bezier(.2,.9,.2,1);
-}
-.card h2{
-  margin-top:0;
-  font-size:26px;
-  font-weight:700;
-}
-.card p, .card li{
-  font-size:17px;
-  line-height:1.65;
-  color:#333;
+/* NAVBAR */
+.navbar {
+    width: 100%;
+    background: #ffffffcc;
+    backdrop-filter: blur(10px);
+    padding: 14px 26px;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-ul{margin-left:20px;}
-
-.code{
-  background:#fbfdff;
-  border-radius:10px;
-  padding:12px;
-  margin-top:10px;
-  border:1px solid rgba(6,20,40,0.03);
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:14px;
+.brand {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0071e3;
 }
 
-/* highlight badge */
-.badge{
-  display:inline-block;
-  padding:6px 12px;
-  background:linear-gradient(90deg,#e8f2ff,#eef0ff);
-  color:#063970;
-  font-weight:600;
-  border-radius:12px;
-  margin-right:10px;
+.nav-links a {
+    margin-left: 18px;
+    text-decoration: none;
+    color: #1d1d1f;
+    font-weight: 600;
+}
+.nav-links a:hover {
+    color: #0071e3;
 }
 
-/* Responsive */
-@media(max-width:760px){
-  .title{font-size:30px}
-  .subtitle{font-size:16px}
+/* CONTENT LAYOUT */
+.container {
+    max-width: 1150px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.06);
+}
+
+h1, h2 {
+    margin-top: 0;
+}
+
+p, li {
+    color: #5b6570;
+    line-height: 1.6;
+}
+
+ul {
+    margin-left: 20px;
+}
+
+/* CODE BLOCKS */
+.code {
+    background: #eef3f9;
+    padding: 14px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 14px;
+    margin-top: 8px;
+    white-space: pre-wrap;
+    color: #333;
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
-<nav class="navbar">
-  <div class="brand">IPC Framework</div>
-  <div class="navlinks">
-    <a href="../index.html" target="_blank">Home</a>
-    <a href="overview.html" target="_blank">Overview</a>
-    <a href="modules.html" target="_blank">Modules</a>
-    <a href="functionalities.html" target="_blank">Functionalities</a>
-    <a href="technology.html" target="_blank">Technology</a>
-    <a href="execution.html" target="_blank">Execution Plan</a>
-    <a href="examples.html" target="_blank">Examples</a>
-    <a href="simulation.html" target="_blank">Simulation</a>
-  </div>
-</nav>
-
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="brand">IPC Framework</div>
+    <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="overview.html">Overview</a>
+        <a href="modules.html">Modules</a>
+        <a href="functionalities.html">Functionalities</a>
+        <a href="technology.html">Technology</a>
+        <a href="execution.html">Execution Plan</a>
+        <a href="examples.html">Examples</a>
+        <a href="simulation.html">Simulation</a>
+        <a href="risks.html">Risks</a>
+        <a href="future.html">Future Enhancements</a>
+    </div>
+</div>
 
 <!-- CONTENT -->
-<main class="container">
+<div class="container">
 
-  <h1 class="title">Practical IPC Examples</h1>
-  <p class="subtitle">
-    Explore real-world scenarios demonstrating when and why to choose FIFO, Message Queues, or Shared Memory.
-  </p>
-
-
-  <!-- EXAMPLE 1 -->
-  <section class="card fade">
-    <h2>1. Real-time Camera Streaming (Shared Memory)</h2>
-    <span class="badge">High throughput</span>
-    <span class="badge">Zero copy</span>
-    <span class="badge">Low latency</span>
-
-    <p>
-      A camera process generates 1080p frames at 30fps. Copying each frame is expensive,
-      so shared memory is used with a ring buffer.
-    </p>
-
-    <ul>
-      <li>Producer writes raw frames to shared memory.</li>
-      <li>Semaphore signals data availability.</li>
-      <li>Consumer reads frames without extra copies.</li>
-    </ul>
-
-    <p><b>Code snippet:</b></p>
-    <div class="code">
-int fd = shm_open("/frames", O_CREAT | O_RDWR, 0600);  
-ftruncate(fd, FRAME_SIZE * 4);  
-uint8_t* buf = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);  
-sem_post(frame_ready);
+    <div class="card">
+        <h1>Examples</h1>
+        <p>
+            Here are simple and clear examples showing how each IPC mechanism
+            (FIFO, Message Queue, Shared Memory) works in real programs.
+            These examples help during viva and while explaining concepts to faculty.
+        </p>
     </div>
 
-    <p style="margin-top:12px;color:var(--muted)">
-      This technique is used in robotics, autonomous vehicles, and multimedia pipelines.
-    </p>
-  </section>
+    <!-- FIFO EXAMPLE -->
+    <div class="card">
+        <h2>1. FIFO (Named Pipe) Example</h2>
+        <p>This example shows how a producer sends text to a consumer using a FIFO.</p>
 
+        <h3>Producer Code:</h3>
+        <div class="code">
+mkfifo("myfifo", 0666);
+int fd = open("myfifo", O_WRONLY);
+write(fd, "Hello from FIFO!", 16);
+close(fd);
+        </div>
 
-  <!-- EXAMPLE 2 -->
-  <section class="card fade">
-    <h2>2. Task Scheduling (Message Queues)</h2>
-    <span class="badge">Priority based</span>
-    <span class="badge">Structured messages</span>
+        <h3>Consumer Code:</h3>
+        <div class="code">
+int fd = open("myfifo", O_RDONLY);
+char buffer[100];
+read(fd, buffer, sizeof(buffer));
+printf("Received: %s\n", buffer);
+close(fd);
+        </div>
 
-    <p>
-      A web front-end sends user tasks to a backend worker pool.
-      Message queues help prioritize urgent tasks without modifying existing code.
-    </p>
-
-    <ul>
-      <li>Producer places structured jobs with priority metadata.</li>
-      <li>Consumer workers dequeue and process tasks in order.</li>
-      <li>Supports non-blocking receives for scalable queues.</li>
-    </ul>
-
-    <p><b>Code snippet:</b></p>
-    <div class="code">
-struct job j = { .task_id=101, .priority=3 };  
-mq_send(mq, (char*)&j, sizeof(j), j.priority);
+        <p><b>Use Case:</b> Real-time logging from one process to another.</p>
     </div>
 
-    <p style="margin-top:12px;color:var(--muted)">
-      Ideal for job dispatchers, rendering pipelines, and microservice task runners.
-    </p>
-  </section>
+    <!-- MESSAGE QUEUE EXAMPLE -->
+    <div class="card">
+        <h2>2. Message Queue Example</h2>
+        <p>Message Queues allow prioritized, structured messages.</p>
 
+        <h3>Sender:</h3>
+        <div class="code">
+mqd_t mq = mq_open("/mqdemo", O_WRONLY);
+char msg[] = "Task completed!";
+mq_send(mq, msg, sizeof(msg), 5); // Priority = 5
+mq_close(mq);
+        </div>
 
-  <!-- EXAMPLE 3 -->
-  <section class="card fade">
-    <h2>3. Log Aggregation (FIFO)</h2>
-    <span class="badge">Simple</span>
-    <span class="badge">Stream-based</span>
+        <h3>Receiver:</h3>
+        <div class="code">
+mqd_t mq = mq_open("/mqdemo", O_RDONLY);
+char buffer[128];
+unsigned int prio;
+mq_receive(mq, buffer, sizeof(buffer), &prio);
+printf("Received (%u): %s\n", prio, buffer);
+mq_close(mq);
+        </div>
 
-    <p>
-      Multiple child processes generate logs. Instead of writing to many files,
-      all logs are streamed into a single FIFO.
-    </p>
-
-    <ul>
-      <li>Parent creates FIFO <code>"/logs.pipe"</code>.</li>
-      <li>Children write logs to FIFO.</li>
-      <li>Aggregator process reads the combined stream.</li>
-    </ul>
-
-    <p><b>Code snippet:</b></p>
-    <div class="code">
-mkfifo("logs.pipe", 0666);  
-int fd = open("logs.pipe", O_WRONLY);  
-write(fd, "Child 1: Started\n", 18);
+        <p><b>Use Case:</b> Event-based communication between processes.</p>
     </div>
 
-    <p style="margin-top:12px;color:var(--muted)">
-      Used by system daemons, container runtimes, and debugging tools.
-    </p>
-  </section>
+    <!-- SHARED MEMORY EXAMPLE -->
+    <div class="card">
+        <h2>3. Shared Memory Example</h2>
+        <p>This example shows two processes sharing data using a memory block + semaphore.</p>
 
+        <h3>Writer:</h3>
+        <div class="code">
+int shm = shm_open("/shm", O_CREAT | O_RDWR, 0666);
+ftruncate(shm, 1024);
+char* ptr = mmap(0, 1024, PROT_WRITE, MAP_SHARED, shm, 0);
+sprintf(ptr, "Shared Memory Rocks!");
+        </div>
 
-  <!-- EXAMPLE 4 -->
-  <section class="card fade">
-    <h2>4. Multi-process Chat App (Hybrid IPC)</h2>
-    <span class="badge">Hybrid model</span>
-    <span class="badge">Real-time</span>
+        <h3>Reader:</h3>
+        <div class="code">
+int shm = shm_open("/shm", O_RDONLY, 0666);
+char* ptr = mmap(0, 1024, PROT_READ, MAP_SHARED, shm, 0);
+printf("Read: %s\n", ptr);
+        </div>
 
-    <p>
-      A simple multi-process chat system uses:
-    </p>
+        <p><b>Use Case:</b> Passing high-speed data (like sensor inputs) between processes.</p>
+    </div>
 
-    <ul>
-      <li>Message Queue → Chat message routing</li>
-      <li>Shared Memory → Fast emoji/sticker transfers</li>
-      <li>FIFO → System logs and debug information</li>
-    </ul>
+    <!-- Security Example -->
+    <div class="card">
+        <h2>4. Security Token Example</h2>
+        <p>Security ensures only authorized processes access IPC channels.</p>
 
-    <p>
-      Hybrid IPC is extremely powerful because it uses each mechanism for what it does best.
-    </p>
-  </section>
+        <h3>Check Token:</h3>
+        <div class="code">
+if (!validate_token("client.token")) {
+    printf("Unauthorized access denied!\n");
+    exit(1);
+}
+        </div>
 
+        <p><b>Use Case:</b> Preventing unknown processes from opening shared memory.</p>
+    </div>
 
-  <!-- EXAMPLE 5 -->
-  <section class="card fade">
-    <h2>5. Sensor Fusion System (Shared Memory + MQ)</h2>
-    <span class="badge">Robotics</span>
-    <span class="badge">AI Systems</span>
-
-    <p>
-      Autonomous systems often gather data from many sensors:
-    </p>
-
-    <ul>
-      <li>Shared Memory → Send high-volume sensor frames</li>
-      <li>Message Queue → Send control commands / metadata</li>
-    </ul>
-
-    <p><i>Fast + structured communication = optimal system performance.</i></p>
-  </section>
-
-
-</main>
-
-<script>
-/* ===== Scroll Reveal Animation ===== */
-(function(){
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(c=>{
-    c.style.opacity = 0;
-    c.style.transform = 'translateY(26px)';
-  });
-
-  function reveal(){
-    cards.forEach(c=>{
-      const r = c.getBoundingClientRect();
-      if(r.top < window.innerHeight - 80){
-        c.style.opacity = 1;
-        c.style.transform = 'translateY(0)';
-      }
-    });
-  }
-
-  window.addEventListener("scroll", reveal);
-  window.addEventListener("resize", reveal);
-  reveal();
-})();
-</script>
+</div>
 
 </body>
 </html>
