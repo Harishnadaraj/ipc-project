@@ -1,236 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>IPC Framework — Execution Plan</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
 
 <style>
-/* ===== Apple-style Theme ===== */
-:root{
-  --bg:#f6f7f9; 
-  --card:#ffffff; 
-  --accent:#0071e3; 
-  --muted:#556472;
-}
-*{box-sizing:border-box;}
-body{
-  margin:0;
-  background:var(--bg);
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;
-  color:#0f1724;
-  -webkit-font-smoothing:antialiased;
+/* GLOBAL STYLES */
+body {
+    margin: 0;
+    background: #f5f7fa;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, Arial;
+    color: #1d1d1f;
 }
 
-/* ===== Navbar ===== */
-.navbar{
-  position:sticky; top:0; z-index:20;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:14px 36px;
-  background:var(--card);
-  box-shadow:0 2px 16px rgba(10,20,30,0.06);
-}
-.brand{font-size:22px;font-weight:800;color:var(--accent);}
-.navlinks a{
-  margin-left:18px;
-  font-weight:600;
-  text-decoration:none;
-  color:#0f1724;
-}
-.navlinks a:hover{color:var(--accent);}
-
-/* ===== Main layout ===== */
-.container{max-width:1100px;margin:60px auto;padding:20px;}
-.title{font-size:38px;font-weight:800;margin-bottom:14px;}
-.subtitle{font-size:18px;color:var(--muted);margin-bottom:32px;}
-.section{
-  background:var(--card);
-  padding:30px;
-  margin-bottom:26px;
-  border-radius:18px;
-  box-shadow:0 14px 40px rgba(12,20,40,0.06);
-  opacity:0;
-  transform:translateY(26px);
-  transition:all .8s cubic-bezier(.2,.9,.2,1);
-}
-.section h2{
-  margin-top:0;
-  font-size:26px;
-  font-weight:700;
-}
-.section p, .section li{
-  font-size:17px;
-  line-height:1.65;
-  color:#333;
+/* NAVBAR */
+.navbar {
+    width: 100%;
+    background: #ffffffcc;
+    backdrop-filter: blur(10px);
+    padding: 14px 26px;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    z-index: 1000;
 }
 
-/* badge */
-.badge{
-  display:inline-block;
-  padding:6px 12px;
-  margin-right:10px;
-  border-radius:12px;
-  background:linear-gradient(90deg,#e8f2ff,#f3eeff);
-  color:#063970;
-  font-weight:600;
+.brand {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0071e3;
 }
 
-/* timeline style list */
-.timeline{
-  border-left:4px solid #d1d9e6;
-  margin-left:12px;
-  padding-left:20px;
-}
-.timeline li{
-  position:relative;
-  margin-bottom:18px;
-}
-.timeline li::before{
-  content:'';
-  position:absolute;
-  left:-28px; top:6px;
-  width:12px; height:12px;
-  background:var(--accent);
-  border-radius:50%;
+.nav-links a {
+    margin-left: 18px;
+    text-decoration: none;
+    color: #1d1d1f;
+    font-weight: 600;
 }
 
-/* responsive */
-@media(max-width:760px){
-  .title{font-size:30px}
-  .subtitle{font-size:16px}
+.nav-links a:hover {
+    color: #0071e3;
+}
+
+/* PAGE CONTENT */
+.container {
+    max-width: 1150px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.06);
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+}
+
+p, li {
+    color: #5b6570;
+    line-height: 1.6;
+}
+
+ul, ol {
+    margin-left: 20px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== NAVBAR ===== -->
-<nav class="navbar">
-  <div class="brand">IPC Framework</div>
-  <div class="navlinks">
-    <a href="../index.html" target="_blank">Home</a>
-    <a href="overview.html" target="_blank">Overview</a>
-    <a href="modules.html" target="_blank">Modules</a>
-    <a href="functionalities.html" target="_blank">Functionalities</a>
-    <a href="technology.html" target="_blank">Technology</a>
-    <a href="execution.html" target="_blank">Execution Plan</a>
-    <a href="examples.html" target="_blank">Examples</a>
-    <a href="simulation.html" target="_blank">Simulation</a>
-  </div>
-</nav>
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="brand">IPC Framework</div>
 
-<!-- ===== CONTENT ===== -->
-<main class="container">
+    <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="overview.html">Overview</a>
+        <a href="modules.html">Modules</a>
+        <a href="functionalities.html">Functionalities</a>
+        <a href="technology.html">Technology</a>
+        <a href="execution.html">Execution Plan</a>
+        <a href="examples.html">Examples</a>
+        <a href="simulation.html">Simulation</a>
+        <a href="risks.html">Risks</a>
+        <a href="future.html">Future Enhancements</a>
+    </div>
+</div>
 
-  <h1 class="title">Execution Plan</h1>
-  <p class="subtitle">A structured and optimized plan to design, build, test, and refine the IPC framework efficiently.</p>
+<!-- CONTENT -->
+<div class="container">
 
-  <!-- Phase 1 -->
-  <section class="section fade">
-    <h2>Phase 1 — Planning & Architecture</h2>
-    <span class="badge">Design</span>
-    <span class="badge">Architecture</span>
+    <div class="card">
+        <h1>Execution Plan</h1>
+        <p>
+            This step-by-step guide explains how the IPC Framework can be implemented efficiently.
+            Each phase includes recommended programming techniques and tools to ensure smooth development.
+        </p>
+    </div>
 
-    <p>Lay the groundwork by defining the requirements, choosing the IPC mechanisms, and establishing security and performance goals.</p>
+    <!-- STEP 1 -->
+    <div class="card">
+        <h2>1. Design Phase</h2>
+        <p>Before writing any code, finalize the system architecture.</p>
+        <ul>
+            <li>Choose C as the base language for IPC implementation.</li>
+            <li>Define API: <code>ipc_create()</code>, <code>ipc_send()</code>, <code>ipc_receive()</code>.</li>
+            <li>Select required POSIX IPC mechanisms (FIFO, MQ, SHM).</li>
+            <li>Plan message formats and buffer sizes.</li>
+            <li>Create security policy (token system, permissions).</li>
+        </ul>
+    </div>
 
-    <ul class="timeline">
-      <li>Identify use cases for FIFO, MQ, and SHM.</li>
-      <li>Define a unified API layer for all transports.</li>
-      <li>Set security rules for token generation and verification.</li>
-      <li>Specify metrics required for monitoring.</li>
-    </ul>
-  </section>
+    <!-- STEP 2 -->
+    <div class="card">
+        <h2>2. Build the MVP (Minimum Viable Product)</h2>
+        <p>
+            Start with the simplest working structure to validate the project idea.
+        </p>
+        <ul>
+            <li>Implement FIFO communication (send/receive).</li>
+            <li>Create message queue wrapper.</li>
+            <li>Add basic error handling and logs.</li>
+            <li>Write test programs for each IPC type separately.</li>
+        </ul>
+    </div>
 
-  <!-- Phase 2 -->
-  <section class="section fade">
-    <h2>Phase 2 — Core Implementation</h2>
-    <span class="badge">Development</span>
+    <!-- STEP 3 -->
+    <div class="card">
+        <h2>3. Add Shared Memory Support</h2>
+        <p>
+            Shared memory provides the fastest communication between processes.
+        </p>
+        <ul>
+            <li>Use <code>shm_open()</code> to allocate memory.</li>
+            <li>Map memory using <code>mmap()</code>.</li>
+            <li>Use semaphores for synchronization (<code>sem_wait</code>, <code>sem_post</code>).</li>
+            <li>Implement ring buffer or frame-based data transfer.</li>
+        </ul>
+    </div>
 
-    <p>This phase focuses on implementing the core IPC engine and validating functional correctness.</p>
+    <!-- STEP 4 -->
+    <div class="card">
+        <h2>4. Implement the Security Layer</h2>
+        <p>
+            Security ensures only authorized processes access IPC channels.
+        </p>
+        <ul>
+            <li>Generate tokens for trusted processes.</li>
+            <li>Validate tokens before sending/receiving messages.</li>
+            <li>Use permissions such as 0600 for creating IPC objects.</li>
+            <li>Optionally encrypt messages using AES-GCM.</li>
+        </ul>
+    </div>
 
-    <ul class="timeline">
-      <li>Implement FIFO backend (mkfifo, open, read, write).</li>
-      <li>Implement POSIX Message Queue backend (mq_open, mq_send, mq_receive).</li>
-      <li>Implement Shared Memory backend (shm_open, mmap, semaphores).</li>
-      <li>Develop unified API functions for send/receive operations.</li>
-      <li>Add error handling, timeouts, and non-blocking modes.</li>
-    </ul>
-  </section>
+    <!-- STEP 5 -->
+    <div class="card">
+        <h2>5. Add Monitoring & Developer Tools</h2>
+        <p>
+            Monitoring improves debugging, performance tuning, and demonstration.
+        </p>
+        <ul>
+            <li>Create a CLI tool (<code>ipcctl</code>) to inspect IPC objects.</li>
+            <li>Add counters to track messages/sec.</li>
+            <li>Add logs for queue overflow or semaphore blocking.</li>
+            <li>Generate simple performance graphs using Python.</li>
+        </ul>
+    </div>
 
-  <!-- Phase 3 -->
-  <section class="section fade">
-    <h2>Phase 3 — Security Layer</h2>
-    <span class="badge">Security</span>
+    <!-- STEP 6 -->
+    <div class="card">
+        <h2>6. Testing Phase</h2>
 
-    <p>Integrate access control and permission checks to protect IPC objects from unauthorized access.</p>
+        <h3>Unit Testing</h3>
+        <ul>
+            <li>Test FIFO read/write correctness.</li>
+            <li>Test MQ message boundaries and priorities.</li>
+            <li>Test shared memory consistency.</li>
+        </ul>
 
-    <ul class="timeline">
-      <li>Implement token-based validation for each channel.</li>
-      <li>Set strict 0600 permissions on IPC resources.</li>
-      <li>Integrate optional AES encryption for sensitive channels.</li>
-      <li>Add audit logging for channel access attempts.</li>
-    </ul>
-  </section>
+        <h3>Stress Testing</h3>
+        <ul>
+            <li>Fill message queues to max capacity.</li>
+            <li>Generate rapid producers to test shared memory.</li>
+        </ul>
 
-  <!-- Phase 4 -->
-  <section class="section fade">
-    <h2>Phase 4 — Monitoring & Tooling</h2>
-    <span class="badge">Monitoring</span>
-    <span class="badge">CLI Tools</span>
+        <h3>Security Testing</h3>
+        <ul>
+            <li>Attempt unauthorized access to prove token validation.</li>
+            <li>Simulate corrupted or malformed messages.</li>
+        </ul>
+    </div>
 
-    <p>Helpful tools for analyzing throughput and debugging system performance.</p>
+    <!-- STEP 7 -->
+    <div class="card">
+        <h2>7. Documentation & Deployment</h2>
+        <p>
+            Documenting the system ensures future maintainability and helps during viva.
+        </p>
+        <ul>
+            <li>Write README with architecture diagrams.</li>
+            <li>Provide usage examples for each IPC type.</li>
+            <li>Prepare presentation slides & simulation demo.</li>
+            <li>Package source files into ZIP for submission.</li>
+        </ul>
+    </div>
 
-    <ul class="timeline">
-      <li>Implement message rate counters (msg/sec).</li>
-      <li>Add logging hooks and metrics collectors.</li>
-      <li>Create lightweight CLI tool <b>ipcctl</b> to inspect channels.</li>
-      <li>Generate diagnostic reports for testing labs.</li>
-    </ul>
-  </section>
-
-  <!-- Phase 5 -->
-  <section class="section fade">
-    <h2>Phase 5 — Testing & Optimization</h2>
-    <span class="badge">Testing</span>
-    <span class="badge">Performance</span>
-
-    <p>Validate correctness, eliminate memory leaks, and maximize performance.</p>
-
-    <ul class="timeline">
-      <li>Run unit tests for FIFO, MQ, SHM modules.</li>
-      <li>Stress-test shared memory using synthetic workloads.</li>
-      <li>Use Valgrind to remove memory leaks.</li>
-      <li>Optimize semaphore usage to reduce blocking.</li>
-      <li>Generate final documentation and prepare demo.</li>
-    </ul>
-  </section>
-
-</main>
-
-<script>
-/* ===== Scroll Reveal Animation ===== */
-(function(){
-  const sections = document.querySelectorAll('.section');
-  sections.forEach(sec => {
-    sec.style.opacity = 0;
-    sec.style.transform = 'translateY(24px)';
-  });
-
-  function reveal(){
-    sections.forEach(sec=>{
-      const r = sec.getBoundingClientRect();
-      if(r.top < window.innerHeight - 80){
-        sec.style.opacity = 1;
-        sec.style.transform = 'translateY(0)';
-      }
-    });
-  }
-
-  window.addEventListener('scroll', reveal);
-  window.addEventListener('resize', reveal);
-  reveal();
-})();
-</script>
+</div>
 
 </body>
 </html>
